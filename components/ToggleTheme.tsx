@@ -21,7 +21,7 @@ export default function ThemeToggleButton() {
 
       <DropdownMenuContent
         align="end"
-        className="mt-3 overflow-hidden rounded-md border shadow-lg dark:border-0 dark:bg-[#182130]"
+        className="mt-3 overflow-hidden bg-white rounded-md border shadow-lg dark:border-0 dark:bg-[#182130]"
       >
         <DropdownMenuItem
           onClick={() => theme.setTheme("light")}
