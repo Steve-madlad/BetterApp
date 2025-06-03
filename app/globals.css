@@ -119,8 +119,12 @@
     @apply flex items-center justify-start;
   }
 
-  .blue-bg {
-    background-color: hsl(var(--brand-blue));
+  .flex-between {
+    @apply flex items-center justify-between;
+  }
+
+  .col-center {
+    @apply flex flex-col items-center justify-center;
   }
 
   .blu {

@@ -4,8 +4,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { useTheme } from "next-themes";
@@ -18,39 +16,34 @@ export default function ThemeToggleButton() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="rounded-full p-1">
-        <Sun />
+        {theme.resolvedTheme == "dark" ? <Moon /> : <Sun />}
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
         align="end"
-        className="rounded-md light:border light:bg-white shadow-lg dark:bg-[#182130] mt-2"
+        className="rounded-md border dark:border-0 shadow-lg dark:bg-[#182130] mt-3 overflow-hidden"
       >
         <DropdownMenuItem
           onClick={() => theme.setTheme("light")}
-          className={`flex-start px-2 cursor-pointer gap-2 pr-8 py-2 hover:outline-0 hover:bg-accent rounded-sm ${
-            theme.theme == "light" && "blu"
-          } light:hover:!text-white
-          `}
+          className={`flex-start pl-4 cursor-pointer gap-2 pr-8 py-2 hover:outline-0 hover:bg-accent text-ocean-blue dark:text-white dark:hover:text-white rounded-t-md`}
         >
           <Sun size={18} /> Light
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => theme.setTheme("dark")}
-          className={`flex-start px-2 cursor-pointer gap-2 pr-8 py-2 hover:outline-0 hover:bg-accent rounded-sm ${
-            theme.theme == "dark" && "blu"
-          } dark:hover:!text-white
-          `}
+          className={`flex-start pl-4 cursor-pointer gap-2 pr-8 py-2 hover:outline-0 hover:bg-accent ${
+            theme.theme == "dark" && "text-ocean-blue"
+          } dark:hover:!text-white`}
         >
           <Moon size={17} /> Dark
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => theme.setTheme("system")}
-          className={`flex-start px-2 cursor-pointer gap-2 pr-8 py-2 hover:outline-0 hover:bg-accent rounded-sm ${
-            theme.theme == "system" && "blu"
-          } system:hover:!text-white
-          `}
+          className={`flex-start pl-4 cursor-pointer gap-2 pr-8 py-2 hover:outline-0 hover:bg-accent ${
+            theme.theme == "system" && "text-ocean-blue"
+          } dark:hover:!text-white rounded-b-md`}
         >
-          <Monitor size={15} /> System
+          <Monitor size={16} /> System
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
