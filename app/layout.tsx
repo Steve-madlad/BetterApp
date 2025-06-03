@@ -30,10 +30,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}
       >
         <Providers>
-          <nav className="flex-between shadow-md px-8">
+          <nav className="flex-between px-8 shadow-md">
             <div className="flex-center gap-2">
               <Image
                 width={50}

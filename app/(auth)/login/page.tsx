@@ -20,16 +20,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-
 export default function login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [switchIcon, setSwitchIcon] = useState(false);
 
   return (
-    <div className="flex-grow flex-center">
+    <div className="flex-center flex-grow">
       <Card className="w-full max-w-sm">
         <CardHeader className="col-center">
-          <div className="flex-center rounded-[4px] h-10 w-11 shadow-md dark:bg-white">
+          <div className="flex-center h-10 w-11 rounded-[4px] shadow-md dark:bg-white">
             <Image
               src="/better-auth-logo-lightpng-removebg-preview.svg"
               alt="logo"
@@ -76,7 +75,7 @@ export default function login() {
                   />
                   <Button
                     type="button"
-                    className="absolute p-3 bg-transparent shadow-none right-0 top-1/2 -translate-y-1/2"
+                    className="absolute right-0 top-1/2 -translate-y-1/2 bg-transparent p-3 shadow-none"
                     onClick={() => setPasswordVisible(!passwordVisible)}
                   >
                     {passwordVisible ? <Eye /> : <EyeOff />}
@@ -84,7 +83,7 @@ export default function login() {
                 </div>
                 <a
                   href="#"
-                  className="ml-auto inline-block underline-offset-4 text-sm hover:underline"
+                  className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                 >
                   Forgot your password?
                 </a>
@@ -93,18 +92,21 @@ export default function login() {
           </form>
         </CardContent>
         <CardFooter className="flex-col gap-2 space-y-2">
-          <Button type="submit" className="w-full duration-300 bg-ocean-blue text-white">
+          <Button
+            type="submit"
+            className="w-full bg-ocean-blue text-white duration-300"
+          >
             Login
           </Button>
 
-          <div className="flex items-center w-full gap-4">
+          <div className="flex w-full items-center gap-4">
             <Separator className="flex-1" />
-            <span className="text-muted-foreground -translate-y-px">Or</span>
+            <span className="-translate-y-px text-muted-foreground">Or</span>
             <Separator className="flex-1" />
           </div>
 
-          <div className="submit w-full flex gap-4">
-            <Button variant="outline" className="flex-1 group">
+          <div className="submit flex w-full gap-4">
+            <Button variant="outline" className="group flex-1">
               <ImGithub className="group-hover:text-[#3e75c3]" /> Github
             </Button>
             <Button
@@ -113,7 +115,8 @@ export default function login() {
               onMouseLeave={() => setSwitchIcon(false)}
               className="flex-1"
             >
-              {switchIcon ? <FcGoogle className="scale-125"/> : <GrGoogle />} Google
+              {switchIcon ? <FcGoogle className="scale-125" /> : <GrGoogle />}{" "}
+              Google
             </Button>
           </div>
         </CardFooter>

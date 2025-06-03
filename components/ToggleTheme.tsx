@@ -21,17 +21,17 @@ export default function ThemeToggleButton() {
 
       <DropdownMenuContent
         align="end"
-        className="rounded-md border dark:border-0 shadow-lg dark:bg-[#182130] mt-3 overflow-hidden"
+        className="mt-3 overflow-hidden rounded-md border shadow-lg dark:border-0 dark:bg-[#182130]"
       >
         <DropdownMenuItem
           onClick={() => theme.setTheme("light")}
-          className={`flex-start pl-4 cursor-pointer gap-2 pr-8 py-2 hover:outline-0 hover:bg-accent text-ocean-blue dark:text-white dark:hover:text-white rounded-t-md`}
+          className={`flex-start cursor-pointer gap-2 rounded-t-md py-2 pl-4 pr-8 text-ocean-blue hover:bg-accent hover:outline-0 dark:text-white dark:hover:text-white`}
         >
           <Sun size={18} /> Light
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => theme.setTheme("dark")}
-          className={`flex-start pl-4 cursor-pointer gap-2 pr-8 py-2 hover:outline-0 hover:bg-accent ${
+          className={`flex-start cursor-pointer gap-2 py-2 pl-4 pr-8 hover:bg-accent hover:outline-0 ${
             theme.theme == "dark" && "text-ocean-blue"
           } dark:hover:!text-white`}
         >
@@ -39,9 +39,9 @@ export default function ThemeToggleButton() {
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => theme.setTheme("system")}
-          className={`flex-start pl-4 cursor-pointer gap-2 pr-8 py-2 hover:outline-0 hover:bg-accent ${
+          className={`flex-start cursor-pointer gap-2 py-2 pl-4 pr-8 hover:bg-accent hover:outline-0 ${
             theme.theme == "system" && "text-ocean-blue"
-          } dark:hover:!text-white rounded-b-md`}
+          } rounded-b-md dark:hover:!text-white`}
         >
           <Monitor size={16} /> System
         </DropdownMenuItem>
