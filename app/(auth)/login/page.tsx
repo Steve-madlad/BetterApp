@@ -18,16 +18,29 @@ import { ImGithub } from "react-icons/im";
 import { FcGoogle } from "react-icons/fc";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { useTheme } from "next-themes";
+import { useActionState, useEffect, useState } from "react";
+import { signin } from "@/lib/actions/auth-actions";
+import { toast } from "sonner";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [switchIcon, setSwitchIcon] = useState(false);
+  const initialState = {
+    errorMessage: "",
+    values: { email: "", password: "" },
+  };
+  const [state, formAction, loading] = useActionState(signin, initialState);
+
+  useEffect(() => {
+    if (state.errorMessage) {
+      toast.error(state.errorMessage);
+    }
+  }, [state]);
 
   return (
     <div className="flex-center flex-grow">
-      <Card className={`dark:bg-card w-full max-w-sm`}>
+      <Card className={`w-full max-w-sm dark:bg-card`}>
         <CardHeader className="col-center">
           <div className="flex-center h-10 w-11 rounded-[4px] bg-white shadow-md">
             <Image
@@ -51,16 +64,18 @@ export default function login() {
         </CardHeader>
 
         <CardContent>
-          <form>
+          <form action={formAction}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   className="dark:bg-input"
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="mail@example.com"
                   required
+                  defaultValue={state.values.email}
                 />
               </div>
               <div className="grid gap-2">
@@ -69,11 +84,13 @@ export default function login() {
                 </div>
                 <div className="relative">
                   <Input
-                    className="dark:bg-input pr-12"
+                    className="pr-12 dark:bg-input"
                     id="password"
+                    name="password"
                     type={passwordVisible ? "text" : "password"}
-                    required
                     placeholder="******"
+                    required
+                    defaultValue={state.values.password}
                   />
                   <Button
                     type="button"
@@ -91,16 +108,20 @@ export default function login() {
                 </a>
               </div>
             </div>
+
+            <Button
+              aria-disabled={loading}
+              disabled={loading}
+              type="submit"
+              className={`mt-6 flex w-full gap-2 bg-ocean-blue text-white duration-300 ${loading && "brightness-75"}`}
+            >
+              Sign In
+              <Spinner size="small" show={loading} />
+            </Button>
           </form>
         </CardContent>
-        <CardFooter className="flex-col gap-2 space-y-2">
-          <Button
-            type="submit"
-            className="w-full bg-ocean-blue text-white duration-300"
-          >
-            Login
-          </Button>
 
+        <CardFooter className="flex-col gap-2 space-y-2">
           <div className="flex w-full items-center gap-4">
             <Separator className="flex-1" />
             <span className="-translate-y-px text-muted-foreground">Or</span>
@@ -108,16 +129,27 @@ export default function login() {
           </div>
 
           <div className="submit flex w-full gap-4">
-            <Button variant="outline" className="group flex-1 dark:bg-input">
+            <Button
+              aria-disabled={loading}
+              disabled={loading}
+              variant="outline"
+              className={`group flex-1 dark:bg-input ${loading && "cursor-wait bg-muted"}`}
+            >
               <ImGithub className="group-hover:text-[#3e75c3]" /> Github
             </Button>
             <Button
+              aria-disabled={loading}
+              disabled={loading}
               variant="outline"
               onMouseEnter={() => setSwitchIcon(true)}
               onMouseLeave={() => setSwitchIcon(false)}
-              className="flex-1 dark:bg-input"
+              className={`flex-1 dark:bg-input ${loading && "cursor-wait bg-muted"}`}
             >
-              {switchIcon ? <FcGoogle className="scale-125" /> : <GrGoogle />}{" "}
+              {switchIcon ? (
+                <FcGoogle className="scale-[1.15]" />
+              ) : (
+                <GrGoogle />
+              )}
               Google
             </Button>
           </div>

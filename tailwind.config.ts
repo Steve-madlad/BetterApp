@@ -26,6 +26,10 @@ export default {
           DEFAULT: "hsla(var(--muted))",
           foreground: "hsla(var(--muted-foreground))",
         },
+        popover: {
+          DEFAULT: "hsla(var(--popover))",
+          foreground: "hsla(var(--popover-foreground))",
+        },
         "light-dark": "hsla(var(--light-dark))",
         "ocean-blue": "hsla(var(--brand-blue))",
         sidebar: {

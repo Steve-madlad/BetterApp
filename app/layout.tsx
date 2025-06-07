@@ -5,6 +5,7 @@ import ThemeProvider from "@/components/ThemeProvider";
 import ThemeToggleButton from "@/components/ToggleTheme";
 import Link from "next/link";
 import Image from "next/image";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,6 +48,7 @@ export default function RootLayout({
             <ThemeToggleButton />
           </nav>
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

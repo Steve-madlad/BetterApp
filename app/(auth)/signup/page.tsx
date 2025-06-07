@@ -18,16 +18,29 @@ import { GrGoogle } from "react-icons/gr";
 import { FcGoogle } from "react-icons/fc";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { signup } from "@/lib/actions/auth-actions";
+import { toast } from "sonner";
+import { Spinner } from "@/components/ui/spinner";
 
-export default function login() {
+export default function Signup() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [switchIcon, setSwitchIcon] = useState(false);
+  const initialState = {
+    errorMessage: "",
+    values: { email: "", username: "", password: "" },
+  };
+  const [state, formAction, loading] = useActionState(signup, initialState);
+
+  useEffect(() => {
+    if (state.errorMessage) {
+      toast.error(state.errorMessage);
+    }
+  }, [state]);
 
   return (
     <div className="flex-center flex-grow">
-      <Card className="dark:bg-card w-full max-w-sm">
+      <Card className="w-full max-w-sm dark:bg-card">
         <CardHeader className="col-center">
           <div className="flex-center h-10 w-11 rounded-[4px] shadow-md dark:bg-white">
             <Image
@@ -51,7 +64,7 @@ export default function login() {
         </CardHeader>
 
         <CardContent>
-          <form action={signup}>
+          <form action={formAction}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
@@ -62,6 +75,7 @@ export default function login() {
                   type="email"
                   placeholder="mail@example.com"
                   required
+                  defaultValue={state.values?.email || ""}
                 />
               </div>
 
@@ -74,6 +88,7 @@ export default function login() {
                   type="username"
                   placeholder="user123"
                   required
+                  defaultValue={state.values?.username || ""}
                 />
               </div>
 
@@ -88,7 +103,8 @@ export default function login() {
                     type={passwordVisible ? "text" : "password"}
                     required
                     placeholder="******"
-                    className="dark:bg-input pr-12"
+                    className="pr-12 dark:bg-input"
+                    defaultValue={state.values?.password || ""}
                   />
                   <Button
                     type="button"
@@ -102,10 +118,13 @@ export default function login() {
             </div>
 
             <Button
+              aria-disabled={loading}
+              disabled={loading}
               type="submit"
-              className="mt-6 w-full bg-ocean-blue text-white duration-300"
+              className={`mt-6 flex w-full gap-2 bg-ocean-blue text-white duration-300 ${loading && "brightness-75"}`}
             >
               Sign Up
+              <Spinner size="small" show={loading} />
             </Button>
           </form>
         </CardContent>
@@ -118,16 +137,27 @@ export default function login() {
           </div>
 
           <div className="submit flex w-full gap-4">
-            <Button variant="outline" className="dark:bg-input group flex-1">
+            <Button
+              aria-disabled={loading}
+              disabled={loading}
+              variant="outline"
+              className={`group flex-1 dark:bg-input ${loading && "cursor-wait bg-muted"}`}
+            >
               <ImGithub className="group-hover:text-[#3e75c3]" /> Github
             </Button>
             <Button
+              aria-disabled={loading}
+              disabled={loading}
               variant="outline"
               onMouseEnter={() => setSwitchIcon(true)}
               onMouseLeave={() => setSwitchIcon(false)}
-              className="dark:bg-input flex-1"
+              className={`flex-1 dark:bg-input ${loading && "cursor-wait bg-muted"}`}
             >
-              {switchIcon ? <FcGoogle className="scale-[1.15]"/> : <GrGoogle />}
+              {switchIcon ? (
+                <FcGoogle className="scale-[1.15]" />
+              ) : (
+                <GrGoogle />
+              )}
               Google
             </Button>
           </div>

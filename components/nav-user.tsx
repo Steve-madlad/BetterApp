@@ -25,6 +25,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useTheme } from "next-themes";
+import SignOutBtn from "./SignOutBtn";
 
 export function NavUser({
   user,
@@ -37,7 +38,7 @@ export function NavUser({
 }) {
   const { isMobile } = useSidebar();
   const theme = useTheme();
-  
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -47,10 +48,12 @@ export function NavUser({
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="h-8 w-8 rounded-lg grayscale">
-                <AvatarImage src={"https://ui.shadcn.com/" + user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-              </Avatar>
+              <img
+                src={user.avatar}
+                alt="avatar"
+                className="size-8 rounded-lg"
+              />
+
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
                 <span className="truncate text-xs text-muted-foreground">
@@ -61,14 +64,18 @@ export function NavUser({
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className={`w-(--radix-dropdown-menu-trigger-width) ml-2 min-w-56 ${theme.theme == "dark" ? "!bg-[#262626]" : "!bg-white"}  rounded-lg`}
+            className={`w-(--radix-dropdown-menu-trigger-width) bg-popover ml-2 min-w-56 rounded-lg`}
             side={isMobile ? "bottom" : "right"}
             align="end"
             sideOffset={4}
           >
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                <img src={user.avatar} alt="avatar" className="size-8 rounded-lg"/>
+                <img
+                  src={user.avatar}
+                  alt="avatar"
+                  className="size-8 rounded-lg"
+                />
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
                   <span className="truncate text-xs text-muted-foreground">
@@ -79,24 +86,21 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem className="rounded-md">
+              <DropdownMenuItem className="cursor-pointer rounded-md">
                 <IconUserCircle />
                 Account
               </DropdownMenuItem>
-              <DropdownMenuItem className="rounded-md">
+              <DropdownMenuItem className="cursor-pointer rounded-md">
                 <IconCreditCard />
                 Billing
               </DropdownMenuItem>
-              <DropdownMenuItem className="rounded-md">
+              <DropdownMenuItem className="cursor-pointer rounded-md">
                 <IconNotification />
                 Notifications
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="rounded-md">
-              <IconLogout />
-              Log out
-            </DropdownMenuItem>
+            <SignOutBtn />
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
