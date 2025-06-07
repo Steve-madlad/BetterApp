@@ -12,7 +12,7 @@ export default function SignOutBtn() {
 
   const handleLogout = async () => {
     console.log("here");
-    
+
     setLoading(true);
     await signOut({
       fetchOptions: {
@@ -21,11 +21,14 @@ export default function SignOutBtn() {
         },
       },
     }).finally(() => setLoading(false));
+    await fetch("/api/auth/signout", { method: "POST" }).then(() =>
+      router.push("/login"),
+    );
   };
 
   return (
     <Button
-      className={`flex-start px-[8px] py-[6px] h-8 w-full gap-2 ${loading ? "cursor-wait text-muted-foreground" : ""}`}
+      className={`flex-start h-8 w-full gap-2 px-[8px] py-[6px] ${loading ? "cursor-wait text-muted-foreground" : ""}`}
       aria-disabled={loading}
       disabled={loading}
       onClick={handleLogout}
