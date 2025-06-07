@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Providers from "@/components/ThemeProvider";
+import ThemeProvider from "@/components/ThemeProvider";
 import ThemeToggleButton from "@/components/ToggleTheme";
 import Link from "next/link";
 import Image from "next/image";
@@ -28,13 +28,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`}
       >
-        <Providers>
+        <ThemeProvider>
           <nav className="flex-between px-8 shadow-md">
-            <div className="flex-center gap-2">
+            <Link href={"/"} className="flex-center gap-2">
               <Image
                 width={50}
                 height={50}
@@ -42,16 +42,12 @@ export default function RootLayout({
                 src={"/better-auth-logo-lightpng-removebg-preview.svg"}
               />
               <p>Better App</p>
-            </div>
+            </Link>
 
-            <div className="flex-center gap-10">
-              <Link href={"/login"}>Login</Link>
-              <Link href={"/signup"}>Signup</Link>
-              <ThemeToggleButton />
-            </div>
+            <ThemeToggleButton />
           </nav>
           {children}
-        </Providers>
+        </ThemeProvider>
       </body>
     </html>
   );

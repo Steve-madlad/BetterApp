@@ -19,6 +19,7 @@ import { FcGoogle } from "react-icons/fc";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useTheme } from "next-themes";
 
 export default function login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -26,9 +27,9 @@ export default function login() {
 
   return (
     <div className="flex-center flex-grow">
-      <Card className="w-full max-w-sm">
+      <Card className={`dark:bg-card w-full max-w-sm`}>
         <CardHeader className="col-center">
-          <div className="flex-center h-10 w-11 rounded-[4px] shadow-md dark:bg-white">
+          <div className="flex-center h-10 w-11 rounded-[4px] bg-white shadow-md">
             <Image
               src="/better-auth-logo-lightpng-removebg-preview.svg"
               alt="logo"
@@ -38,7 +39,7 @@ export default function login() {
           </div>
 
           <CardTitle className="text-xl font-bold">
-            Welcome To Better App
+            Welcome Back To Better App
           </CardTitle>
 
           <CardDescription>
@@ -55,6 +56,7 @@ export default function login() {
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
+                  className="dark:bg-input"
                   id="email"
                   type="email"
                   placeholder="mail@example.com"
@@ -67,11 +69,11 @@ export default function login() {
                 </div>
                 <div className="relative">
                   <Input
+                    className="dark:bg-input pr-12"
                     id="password"
                     type={passwordVisible ? "text" : "password"}
                     required
                     placeholder="******"
-                    className="pr-12"
                   />
                   <Button
                     type="button"
@@ -106,14 +108,14 @@ export default function login() {
           </div>
 
           <div className="submit flex w-full gap-4">
-            <Button variant="outline" className="group flex-1">
+            <Button variant="outline" className="group flex-1 dark:bg-input">
               <ImGithub className="group-hover:text-[#3e75c3]" /> Github
             </Button>
             <Button
               variant="outline"
               onMouseEnter={() => setSwitchIcon(true)}
               onMouseLeave={() => setSwitchIcon(false)}
-              className="flex-1"
+              className="flex-1 dark:bg-input"
             >
               {switchIcon ? <FcGoogle className="scale-125" /> : <GrGoogle />}{" "}
               Google
